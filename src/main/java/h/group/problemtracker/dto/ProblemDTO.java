@@ -2,26 +2,36 @@ package h.group.problemtracker.dto;
 
 import jakarta.validation.constraints.NotEmpty;
 
+import java.util.Date;
+
 public class ProblemDTO {
     private long projectId;
+
+    @NotEmpty(message = "Title cannot be empty.")
+    private String title;
 
     @NotEmpty(message = "Description cannot be empty.")
     private String description;
 
-    private double pre_solution;
-
-    private double post_solution;
-
-    private double potential_profit;
-
     private boolean finished;
+
+//    @NotNull(message = "Date cannot be null.")
+    private Date started_at;
+
+    public long getProjectId() {
+        return projectId;
+    }
 
     public void setProjectId(long projectId) {
         this.projectId = projectId;
     }
 
-    public long getProjectId() {
-        return projectId;
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDescription() {
@@ -32,35 +42,19 @@ public class ProblemDTO {
         this.description = description;
     }
 
-    public double getPre_solution() {
-        return pre_solution;
-    }
-
-    public void setPre_solution(double pre_solution) {
-        this.pre_solution = pre_solution;
-    }
-
-    public double getPost_solution() {
-        return post_solution;
-    }
-
-    public void setPost_solution(double post_solution) {
-        this.post_solution = post_solution;
-    }
-
-    public double getPotential_profit() {
-        return potential_profit;
-    }
-
-    public void setPotential_profit(double potential_profit) {
-        this.potential_profit = potential_profit;
-    }
-
     public boolean isFinished() {
         return finished;
     }
 
     public void setFinished(boolean finished) {
         this.finished = finished;
+    }
+
+    public Date getStarted_at() {
+        return started_at;
+    }
+
+    public void setStarted_at(Date started_at) {
+        this.started_at = started_at;
     }
 }

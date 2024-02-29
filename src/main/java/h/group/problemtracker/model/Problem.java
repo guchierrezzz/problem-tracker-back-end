@@ -1,6 +1,9 @@
 package h.group.problemtracker.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+
+import java.util.Date;
 
 @Entity
 @Table(name = "problems")
@@ -11,31 +14,36 @@ public class Problem {
 
     @ManyToOne
     @JoinColumn(name = "project_id")
+    @JsonIgnore
     private Project project;
+
+    @Column(nullable = false)
+    private String title;
 
     @Column(nullable = false)
     private String description;
 
     @Column()
-    private double pre_solution;
-
-    @Column()
-    private double post_solution;
-
-    @Column()
-    private double potential_profit;
-
-    @Column()
     private boolean finished;
 
-    public Problem(long id, Project project, String description, double pre_solution, double post_solution, double potential_profit, boolean finished) {
-        this.id = id;
+    @Temporal(TemporalType.DATE)
+    @Column(nullable = false)
+    private Date started_at;
+
+    @PrePersist
+    protected void onCreate() {
+        started_at = new Date();
+    }
+
+    public Problem() {
+    }
+
+    public Problem(Project project, String title, String description, boolean finished, Date started_at) {
         this.project = project;
+        this.title = title;
         this.description = description;
-        this.pre_solution = pre_solution;
-        this.post_solution = post_solution;
-        this.potential_profit = potential_profit;
         this.finished = finished;
+        this.started_at = started_at;
     }
 
     public long getId() {
@@ -54,36 +62,20 @@ public class Problem {
         this.project = project;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public double getPre_solution() {
-        return pre_solution;
-    }
-
-    public void setPre_solution(double pre_solution) {
-        this.pre_solution = pre_solution;
-    }
-
-    public double getPost_solution() {
-        return post_solution;
-    }
-
-    public void setPost_solution(double post_solution) {
-        this.post_solution = post_solution;
-    }
-
-    public double getPotential_profit() {
-        return potential_profit;
-    }
-
-    public void setPotential_profit(double potential_profit) {
-        this.potential_profit = potential_profit;
     }
 
     public boolean isFinished() {
@@ -93,4 +85,13 @@ public class Problem {
     public void setFinished(boolean finished) {
         this.finished = finished;
     }
+
+    public Date getStarted_at() {
+        return started_at;
+    }
+
+    public void setStarted_at(Date started_at) {
+        this.started_at = started_at;
+    }
 }
+

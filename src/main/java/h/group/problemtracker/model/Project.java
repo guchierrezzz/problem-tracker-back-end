@@ -34,6 +34,9 @@ public class Project {
         this.description = description;
     }
 
+    public Project() {
+    }
+
     public long getId() {
         return id;
     }
@@ -64,5 +67,13 @@ public class Project {
 
     public void setImage_url(String image_url) {
         this.image_url = image_url;
+    }
+
+    public List<Problem> getProblems() {
+        return problems;
+    }
+
+    public void setProblems(List<Problem> problems) {
+        this.problems = problems;
     }
 }
