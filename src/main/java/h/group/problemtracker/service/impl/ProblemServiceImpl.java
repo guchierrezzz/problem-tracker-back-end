@@ -26,7 +26,7 @@ public class ProblemServiceImpl implements ProblemService {
     public Problem createProblem(final ProblemDTO problemData, final long projectId) {
         final Project foundProject = projectRepository.findById(projectId).orElseThrow(() -> new AppException("Project not found", HttpStatus.NOT_FOUND));
 
-        Problem newProblem = new Problem(foundProject, problemData.getTitle(), problemData.getDescription(), problemData.isFinished(), problemData.getStarted_at());
+        Problem newProblem = new Problem(foundProject, problemData.getTitle(), problemData.getDescription(), problemData.isFinished(), problemData.getStarted_at(), problemData.getStarting_value(), problemData.getGoal_value(), problemData.getPotential_profit());
         return problemRepository.save(newProblem);
     }
 
@@ -44,8 +44,6 @@ public class ProblemServiceImpl implements ProblemService {
         final Project foundProject = projectRepository.findById(projectId).orElseThrow(() -> new AppException("Project not found", HttpStatus.NOT_FOUND));
         final Problem foundProblem = problemRepository.findById(problemId).orElseThrow(() -> new AppException("Problem not found", HttpStatus.NOT_FOUND));
 
-        foundProblem.setTitle((problemData.getTitle() == null) ? foundProblem.getTitle() : problemData.getTitle());
-        foundProblem.setDescription((problemData.getDescription() == null) ? foundProblem.getDescription() : problemData.getDescription());
         foundProblem.setFinished(problemData.isFinished());
 
         return problemRepository.save(foundProblem);

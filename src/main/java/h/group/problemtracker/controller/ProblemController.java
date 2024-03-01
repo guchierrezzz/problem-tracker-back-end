@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/projects/{projectId}/problems")
+@RequestMapping("/project/{projectId}/problem")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ProblemController {
     private final ProblemService problemService;

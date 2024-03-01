@@ -20,7 +20,7 @@ public class Project {
     @Column()
     private String image_url;
 
-    @OneToMany(mappedBy = "project")
+    @OneToMany(mappedBy = "project", cascade = CascadeType.REMOVE)
     private List<Problem> problems;
 
     public Project(String title, String description, String image_url) {
